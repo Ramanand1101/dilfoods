@@ -1,6 +1,3 @@
-Here’s a complete and formatted README for your project:
-
-```markdown
 # User, Menu, and Order Management System
 
 This project is a backend application that manages users, menus, and orders. It is built using **Express.js** and **MongoDB**, with JWT-based authentication and authorization.
@@ -60,25 +57,29 @@ project-folder/
 ## Setup Instructions
 
 1. **Clone the Repository**
+
    ```bash
    git clone <repository-url>
    cd <project-folder>
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Configure Environment Variables**
    Create a `.env` file in the root directory with the following variables:
-   ```
+
+   ```env
    PORT=5000
    MONGO_URI=<your_mongo_connection_string>
    JWT_SECRET=<your_secret_key>
    ```
 
 4. **Database Configuration**
+
    - Ensure MongoDB is running and accessible using the `MONGO_URI` specified in your `.env` file.
    - The `connectDB` function in `config/db.js` handles the database connection.
 
@@ -87,6 +88,7 @@ project-folder/
 ## Running the Project
 
 Start the server:
+
 ```bash
 npm start
 ```
@@ -98,35 +100,39 @@ The server will run on the port specified in the `.env` file (default: `5000`).
 ## API Documentation
 
 ### User Routes
-| Endpoint           | Method | Description                   | Body Example                               |
-|--------------------|--------|-------------------------------|-------------------------------------------|
-| `/api/users/register` | POST   | Registers a new user          | `{ "name": "John", "email": "john@example.com", "password": "123456" }` |
-| `/api/users/login`    | POST   | Logs in a user                | `{ "email": "john@example.com", "password": "123456" }` |
-| `/api/users/send-otp` | POST   | Sends an OTP to a phone number | `{ "phoneNumber": "+1234567890" }`        |
-| `/api/users/verify-otp` | POST   | Verifies the OTP              | `{ "phoneNumber": "+1234567890", "otp": "123456" }` |
+
+| Endpoint                | Method | Description                    | Body Example                                                            |
+| ----------------------- | ------ | ------------------------------ | ----------------------------------------------------------------------- |
+| `/api/users/register`   | POST   | Registers a new user           | `{ "name": "John", "email": "john@example.com", "password": "123456" }` |
+| `/api/users/login`      | POST   | Logs in a user                 | `{ "email": "john@example.com", "password": "123456" }`                 |
+| `/api/users/send-otp`   | POST   | Sends an OTP to a phone number | `{ "phoneNumber": "+1234567890" }`                                      |
+| `/api/users/verify-otp` | POST   | Verifies the OTP               | `{ "phoneNumber": "+1234567890", "otp": "123456" }`                     |
 
 ### Menu Routes
-| Endpoint       | Method | Description                    | Protected | Body Example |
-|----------------|--------|--------------------------------|-----------|--------------|
-| `/api/menu`    | GET    | Retrieves the menu             | Yes       | N/A          |
-| `/api/menu`    | POST   | Creates a new menu item        | Admin     | `{ "name": "Pizza", "price": 10 }` |
-| `/api/menu/:id` | PUT    | Updates a menu item by ID      | Admin     | `{ "name": "Pasta", "price": 15 }` |
-| `/api/menu/:id` | DELETE | Deletes a menu item by ID      | Admin     | N/A          |
+
+| Endpoint        | Method | Description               | Protected | Body Example                       |
+| --------------- | ------ | ------------------------- | --------- | ---------------------------------- |
+| `/api/menu`     | GET    | Retrieves the menu        | Yes       | N/A                                |
+| `/api/menu`     | POST   | Creates a new menu item   | Admin     | `{ "name": "Pizza", "price": 10 }` |
+| `/api/menu/:id` | PUT    | Updates a menu item by ID | Admin     | `{ "name": "Pasta", "price": 15 }` |
+| `/api/menu/:id` | DELETE | Deletes a menu item by ID | Admin     | N/A                                |
 
 ### Order Routes
-| Endpoint          | Method | Description                     | Protected | Body Example |
-|-------------------|--------|---------------------------------|-----------|--------------|
-| `/api/orders`     | POST   | Creates a new order             | Yes       | `{ "items": [{ "menuId": "id1", "quantity": 2 }] }` |
-| `/api/orders`     | GET    | Retrieves all orders            | Admin     | N/A          |
-| `/api/orders/:id` | GET    | Retrieves a specific order by ID | Yes/Admin | N/A          |
-| `/api/orders/:id` | PUT    | Updates a specific order by ID  | Admin     | `{ "status": "Completed" }` |
-| `/api/orders/:id` | DELETE | Deletes a specific order by ID  | Admin     | N/A          |
+
+| Endpoint          | Method | Description                      | Protected | Body Example                                        |
+| ----------------- | ------ | -------------------------------- | --------- | --------------------------------------------------- |
+| `/api/orders`     | POST   | Creates a new order              | Yes       | `{ "items": [{ "menuId": "id1", "quantity": 2 }] }` |
+| `/api/orders`     | GET    | Retrieves all orders             | Admin     | N/A                                                 |
+| `/api/orders/:id` | GET    | Retrieves a specific order by ID | Yes/Admin | N/A                                                 |
+| `/api/orders/:id` | PUT    | Updates a specific order by ID   | Admin     | `{ "status": "Completed" }`                         |
+| `/api/orders/:id` | DELETE | Deletes a specific order by ID   | Admin     | N/A                                                 |
 
 ---
 
 ## Middleware
 
 **authMiddleware.js**
+
 - `protect`: Ensures the user is authenticated by validating the JWT token.
 - `admin`: Ensures the user has admin privileges.
 
@@ -135,6 +141,7 @@ The server will run on the port specified in the `.env` file (default: `5000`).
 ## Database Configuration
 
 **File:** `config/db.js`
+
 ```javascript
 const mongoose = require('mongoose');
 
@@ -182,6 +189,6 @@ Error handling is included in controllers to ensure appropriate HTTP status code
 ## License
 
 This project is licensed under the MIT License.
-```
 
-This README is comprehensive and serves as a guide for setting up, running, and contributing to the project. Let me know if you need further refinements!
+
+
