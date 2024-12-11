@@ -9,10 +9,11 @@ const orderRoutes = require('./routes/orderRoutes');
 require("dotenv").config();
 connectDB();
 
-
 const app = express();
 app.use(express.json());
-
+app.get("/",(req,res)=>{
+    res.send("Dilfood")
+})
 // Route
 app.use('/api/users', userRoutes);
 
