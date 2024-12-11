@@ -1,4 +1,4 @@
-# User, Menu, and Order Management System
+# Dilfoods Management System
 
 This project is a backend application that manages users, menus, and orders. It is built using **Express.js** and **MongoDB**, with JWT-based authentication and authorization.
 
