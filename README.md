@@ -186,9 +186,6 @@ Error handling is included in controllers to ensure appropriate HTTP status code
 
 ---
 
-## License
-
-This project is licensed under the MIT License.
 
 
 
