@@ -103,7 +103,14 @@ The server will run on the port specified in the `.env` file (default: `5000`).
 
 | Endpoint                | Method | Description                    | Body Example                                                            |
 | ----------------------- | ------ | ------------------------------ | ----------------------------------------------------------------------- |
-| `/api/users/register`   | POST   | Registers a new user           | `{ "name": "John", "email": "john@example.com", "password": "123456" }` |
+| `/api/users/register`   | POST   | Registers a new user           | `{
+  "username": "john_doe",
+  "email": "john.doe@example.com",
+  "password": "securePassword123!",
+  "phoneNumber": "+1234567890",
+  "role": "admin"
+}
+` |
 | `/api/users/login`      | POST   | Logs in a user                 | `{ "email": "john@example.com", "password": "123456" }`                 |
 | `/api/users/send-otp`   | POST   | Sends an OTP to a phone number | `{ "phoneNumber": "+1234567890" }`                                      |
 | `/api/users/verify-otp` | POST   | Verifies the OTP               | `{ "phoneNumber": "+1234567890", "otp": "123456" }`                     |
