@@ -11,13 +11,18 @@ router.post('/login', loginUser);
 // Send OTP to Phone Number
 router.post('/send-otp', async (req, res) => {
     const { phoneNumber } = req.body;
+
+    if (!phoneNumber) {
+        return res.status(400).json({ success: false, message: "Phone number is required" });
+    }
+
     try {
-        const otp = await sendOtp(phoneNumber);
-        res.status(200).json({ message: 'OTP sent successfully' });
+        await sendOtp(phoneNumber, res);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: "An error occurred", error: error.message });
     }
 });
+
 
 // Verify OTP
 router.post('/verify-otp', verifyOtp);
