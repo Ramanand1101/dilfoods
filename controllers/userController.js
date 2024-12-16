@@ -37,7 +37,7 @@ const sendOtp = async (phoneNumber) => {
     // You could save this in the user's record or in an in-memory store like Redis.
     // For simplicity, we will log it here, but remember to store it properly in a secure place.
 
-    console.log(`Generated OTP: ${otp}`); // Replace with your database logic to store OTP
+    res.send(`Generated OTP: ${otp}`); // Replace with your database logic to store OTP
 
     return otp; // Return the OTP for use in the verification step
 };
