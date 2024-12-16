@@ -31,16 +31,31 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-const sendOtp = async (phoneNumber) => {
-    const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
-    // Save OTP in the database or cache (for verification later)
-    // You could save this in the user's record or in an in-memory store like Redis.
-    // For simplicity, we will log it here, but remember to store it properly in a secure place.
+const sendOtp = async (phoneNumber, res) => {
+    try {
+        const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
 
-    res.send(`Generated OTP: ${otp}`); // Replace with your database logic to store OTP
+        // Save OTP in the database or cache (for verification later)
+        // Example: Save to database or use an in-memory store like Redis
+        // await saveOtpToDatabase(phoneNumber, otp);
 
-    return otp; // Return the OTP for use in the verification step
+        console.log(`Generated OTP: ${otp}`); // Logging for debugging purposes
+
+        // Send the OTP as a response (if res is provided)
+        if (res) {
+            res.status(200).json({ success: true, message: "OTP sent successfully", otp });
+        }
+
+        return otp; // Return the OTP for further processing
+    } catch (error) {
+        console.error("Error generating OTP:", error);
+        if (res) {
+            res.status(500).json({ success: false, message: "Failed to generate OTP" });
+        }
+        throw error; // Re-throw the error for error-handling middleware
+    }
 };
+
 
 // Verify OTP
 const verifyOtp = async (req, res) => {
