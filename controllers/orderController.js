@@ -2,9 +2,9 @@ const Order = require('../models/Order');
 
 // Create a new order
 const createOrder = async (req, res) => {
-    const { items, totalAmount, user } = req.body;
+    const { items, totalAmount, user, specialRequests } = req.body;
     try {
-        const order = await Order.create({ items, totalAmount, user });
+        const order = await Order.create({ items, totalAmount, user, specialRequests });
         res.status(201).json(order);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -14,7 +14,11 @@ const createOrder = async (req, res) => {
 // Get all orders
 const getOrders = async (req, res) => {
     try {
-        const orders = await Order.find().populate('items.menuItem').populate('user', 'username email');
+        const orders = await Order.find()
+            .populate('items.menuItem')
+            .populate('user', 'username email')
+            .sort({ createdAt: -1 }); // Sort orders by creation date (most recent first)
+
         res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -25,7 +29,9 @@ const getOrders = async (req, res) => {
 const getOrderById = async (req, res) => {
     const { id } = req.params;
     try {
-        const order = await Order.findById(id).populate('items.menuItem').populate('user', 'username email');
+        const order = await Order.findById(id)
+            .populate('items.menuItem')
+            .populate('user', 'username email');
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });
         }
@@ -35,14 +41,21 @@ const getOrderById = async (req, res) => {
     }
 };
 
-// Update an order by ID
-const updateOrder = async (req, res) => {
+// Update the status of an order
+const updateOrderStatus = async (req, res) => {
     const { id } = req.params;
+    const { status } = req.body; // Expect 'status' in the request body
     try {
-        const updatedOrder = await Order.findByIdAndUpdate(id, req.body, {
-            new: true, // Return the updated document
-            runValidators: true, // Run schema validations
-        });
+        const validStatuses = ['pending', 'in_progress', 'completed', 'cancelled'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ message: 'Invalid status' });
+        }
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            id,
+            { status },
+            { new: true, runValidators: true }
+        );
 
         if (!updatedOrder) {
             return res.status(404).json({ message: 'Order not found' });
@@ -70,4 +83,10 @@ const deleteOrder = async (req, res) => {
     }
 };
 
-module.exports = { createOrder, getOrders, getOrderById, updateOrder, deleteOrder };
+module.exports = {
+    createOrder,
+    getOrders,
+    getOrderById,
+    updateOrderStatus, // New function for updating status
+    deleteOrder,
+};
