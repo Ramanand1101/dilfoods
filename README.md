@@ -112,10 +112,10 @@ The server will run on the port specified in the `.env` file (default: `5000`).
 
 | Endpoint        | Method | Description               | Protected | Body Example                       |
 | --------------- | ------ | ------------------------- | --------- | ---------------------------------- |
-| `/api/menu`     | GET    | Retrieves the menu        | Yes       | N/A                                |
-| `/api/menu`     | POST   | Creates a new menu item   | Admin     | `{ "name": "Pizza", "price": 10 }` |
-| `/api/menu/:id` | PUT    | Updates a menu item by ID | Admin     | `{ "name": "Pasta", "price": 15 }` |
-| `/api/menu/:id` | DELETE | Deletes a menu item by ID | Admin     | N/A                                |
+| `/api/menu`     | GET    | Retrieves the menu        | Yes /staff       | N/A                                |
+| `/api/menu`     | POST   | Creates a new menu item   | Admin    | `{ "name": "Pizza", "price": 10 }` |
+| `/api/menu/:id` | PUT    | Updates a menu item by ID | Admin/staff    | `{ "name": "Pasta", "price": 15 }` |
+| `/api/menu/:id` | DELETE | Deletes a menu item by ID | Admin/staff    | N/A                                |
 
 ### Order Routes
 
@@ -123,8 +123,8 @@ The server will run on the port specified in the `.env` file (default: `5000`).
 | ----------------- | ------ | -------------------------------- | --------- | --------------------------------------------------- |
 | `/api/orders`     | POST   | Creates a new order              | Yes       | `{ "items": [{ "menuId": "id1", "quantity": 2 }] }` |
 | `/api/orders`     | GET    | Retrieves all orders             | Admin     | N/A                                                 |
-| `/api/orders/:id` | GET    | Retrieves a specific order by ID | Yes/Admin | N/A                                                 |
-| `/api/orders/:id` | PUT    | Updates a specific order by ID   | Admin     | `{ "status": "Completed" }`                         |
+| `/api/orders/:id` | GET    | Retrieves a specific order by ID | Yes/Admin/staff | N/A                                                 |
+| `/api/orders/:id` | PUT    | Updates a specific order by ID   | Admin/staff   | `{ "status": "Completed" }`                         |
 | `/api/orders/:id` | DELETE | Deletes a specific order by ID   | Admin     | N/A                                                 |
 
 ---
@@ -134,7 +134,7 @@ The server will run on the port specified in the `.env` file (default: `5000`).
 **authMiddleware.js**
 
 - `protect`: Ensures the user is authenticated by validating the JWT token.
-- `admin`: Ensures the user has admin privileges.
+- `admin`: Ensures the user has admin and staff privileges.
 
 ---
 
@@ -173,7 +173,6 @@ Error handling is included in controllers to ensure appropriate HTTP status code
 
 - Add unit tests for routes and middleware.
 - Implement rate limiting and input validation.
-- Enhance API documentation using tools like Swagger.
 
 ---
 
